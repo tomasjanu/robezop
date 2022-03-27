@@ -1,1 +1,4 @@
 # robezop
+
+## Feeder function 
+- sudo apt-get update --fix-missing && sudo apt-get install python3-rpi.gpio
