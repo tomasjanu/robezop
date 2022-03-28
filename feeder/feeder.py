@@ -13,7 +13,7 @@ else:
 if inStepCount == "":
     step_count = 4096
 else:
-    step_count = inStepCount
+    step_count = int(inStepCount)
 
 in1 = 17
 in2 = 22
