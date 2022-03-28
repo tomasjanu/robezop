@@ -2,18 +2,11 @@
 import RPi.GPIO as GPIO
 import time
 import sys
- 
-arguments = len(sys.argv) - 1
+import argparse
 
-if arguments > 0:
-    inStepCount = sys.argv[1]
-else:
-    inStepCount = "";
-
-if inStepCount == "":
-    step_count = 4096
-else:
-    step_count = int(inStepCount)
+parser = argparse.ArgumentParser()
+parser.add_argument("--step-count", help="Input step count", type=int, default=4096)
+args = parser.parse_args()
 
 in1 = 17
 in2 = 22
@@ -23,7 +16,7 @@ in4 = 24
 # careful lowering this, at some point you run into the mechanical limitation of how quick your motor can move
 step_sleep = 0.002
  
-# step_count = 4096 # 5.625*(1/64) per step, 4096 steps is 360
+# args.step_count = 4096 # 5.625*(1/64) per step, 4096 steps is 360
  
 direction = False # True for clockwise, False for counter-clockwise
  
@@ -66,7 +59,7 @@ def cleanup():
 # the meat
 try:
     i = 0
-    for i in range(step_count):
+    for i in range(args.step_count):
         for pin in range(0, len(motor_pins)):
             GPIO.output( motor_pins[pin], step_sequence[motor_step_counter][pin] )
         if direction==True:
